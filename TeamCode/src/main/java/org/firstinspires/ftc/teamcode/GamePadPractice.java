@@ -16,7 +16,7 @@ public class GamePadPractice extends OpMode {
     @Override
     public void loop() {
         // runs 50x+ a second
-        double speedForward = -gamepad.left_Stick / 2.0;
+        double speedForward = -gamepad1.left_stick_y / 2.0;
         double xDiff = Math.abs(gamepad1.left_stick_x - gamepad1.right_stick_x);
         double sumTriggers = gamepad1.left_trigger + gamepad1.right_trigger;
 
