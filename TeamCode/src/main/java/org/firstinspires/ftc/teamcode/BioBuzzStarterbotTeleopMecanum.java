@@ -22,16 +22,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 /*
  * This file includes a teleop (driver-controlled) file for the goBILDA® StarterBot with Mecanum
@@ -53,16 +45,8 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 //@Disabled
 public class BioBuzzStarterbotTeleopMecanum extends OpMode {
 
-    // Declare OpMode members.
-    private DcMotor leftFrontDrive = null;
-    private DcMotor leftBackDrive = null;
-    private DcMotor rightFrontDrive = null;
-    private DcMotor rightBackDrive = null;
-    private DcMotorEx launcher = null;
-    private DcMotor intake = null;
-    private CRServo leftIntakeServo = null;
-    private CRServo rightIntakeServo = null;
-    private CRServo windmillServo = null;
+    // Declare RobotHardware instance to handle hardware initialization and access.
+    private final RobotHardware robot = new RobotHardware();
 
 
     /*
@@ -99,66 +83,9 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
     public void init() {
 
         /*
-         * Initialize the hardware variables using centralized hardware names.
+         * Initialize all hardware variables using RobotHardware class.
          */
-        leftFrontDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.LEFT_FRONT_DRIVE);
-        rightFrontDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.RIGHT_FRONT_DRIVE);
-        leftBackDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.LEFT_BACK_DRIVE);
-        rightBackDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.RIGHT_BACK_DRIVE);
-        intake = hardwareMap.get(DcMotor.class, RobotHardwareNames.INTAKE);
-        launcher = hardwareMap.get(DcMotorEx.class, RobotHardwareNames.LAUNCHER);
-        windmillServo = hardwareMap.get(CRServo.class, RobotHardwareNames.WINDMILL_SERVO);
-        leftIntakeServo = hardwareMap.get(CRServo.class, RobotHardwareNames.LEFT_INTAKE_SERVO);
-        rightIntakeServo = hardwareMap.get(CRServo.class, RobotHardwareNames.RIGHT_INTAKE_SERVO);
-
-        /*
-         * To drive forward, most robots need the motor on one side to be reversed,
-         * because the axles point in opposite directions. Pushing the left stick forward
-         * MUST make robot go forward. So adjust these two lines based on your first test drive.
-         * Note: The settings here assume direct drive on left and right wheels. Gear
-         * Reduction or 90 Deg drives may require direction flips
-         */
-        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
-
-        /*
-         * Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to
-         * slow down much faster when it is coasting. This creates a much more controllable
-         * drivetrain. As the robot stops much quicker.
-         */
-        leftFrontDrive.setZeroPowerBehavior(BRAKE);
-        rightFrontDrive.setZeroPowerBehavior(BRAKE);
-        leftBackDrive.setZeroPowerBehavior(BRAKE);
-        rightBackDrive.setZeroPowerBehavior(BRAKE);
-        intake.setZeroPowerBehavior(BRAKE);
-
-        /*
-         * Here we set our launcher to the RUN_USING_ENCODER runmode.
-         * If you notice that you have no control over the velocity of the motor, it just jumps
-         * right to a number much higher than your set point, make sure that your encoders are plugged
-         * into the port right beside the motor itself. And that the motors polarity is consistent
-         * through any wiring.
-         */
-
-        launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(40, 0, 0, 12.5));
-
-        /*
-         * set Feeders to an initial value to initialize the servo controller
-         */
-        leftIntakeServo.setPower(0);
-        rightIntakeServo.setPower(0);
-        windmillServo.setPower(0);
-
-        /*
-         * Much like our drivetrain motors, we set the right intake servo to reverse so that both
-         * servos work to pull elements into the intake.
-         */
-        rightIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
-        windmillServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.init(hardwareMap);
 
         /*
          * Tell the driver that initialization is complete.
@@ -221,9 +148,7 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
          * variable before we write it to our motor and servos.
          */
 
-        intake.setPower(intakePower);
-        leftIntakeServo.setPower(intakePower);
-        rightIntakeServo.setPower(intakePower);
+        robot.setIntakePower(intakePower);
 
         /*
          * Show motor powers on the Driver Station via telemetry.
@@ -259,10 +184,7 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
         /*
          * Send calculated power to wheels
          */
-        leftFrontDrive.setPower(leftFrontPower);
-        rightFrontDrive.setPower(rightFrontPower);
-        leftBackDrive.setPower(leftBackPower);
-        rightBackDrive.setPower(rightBackPower);
+        robot.setDrivePower(leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
     }
 
     void launch() {
@@ -275,9 +197,9 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
          * Otherwise, we start spinning the launcher down.
          */
         if (gamepad1.right_bumper) {
-            launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
+            robot.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
         } else {
-            launcher.setVelocity(0);
+            robot.setLauncherVelocity(0);
         }
 
         /*
@@ -287,11 +209,11 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
          * add some power to the intake power. This can sometimes help dislodge stuck elements from
          * inside the hopper.
          */
-        if (gamepad1.right_bumper && launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
-            windmillServo.setPower(1);
+        if (gamepad1.right_bumper && robot.getLauncherVelocity() > LAUNCHER_MIN_VELOCITY) {
+            robot.setWindmillPower(1);
             intakePower += 0.5;
         } else {
-            windmillServo.setPower(0);
+            robot.setWindmillPower(0);
         }
     }
 }

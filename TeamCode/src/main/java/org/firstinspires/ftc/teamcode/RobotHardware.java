@@ -46,7 +46,7 @@ public class RobotHardware {
 
         // Motor directions
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
@@ -74,5 +74,58 @@ public class RobotHardware {
 
         rightIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
         windmillServo.setDirection(DcMotorSimple.Direction.REVERSE);
+    }
+
+    /**
+     * Set motor powers for the drive motors.
+     *
+     * @param leftFront  Power for left front drive motor.
+     * @param rightFront Power for right front drive motor.
+     * @param leftBack   Power for left back drive motor.
+     * @param rightBack  Power for right back drive motor.
+     */
+    public void setDrivePower(double leftFront, double rightFront, double leftBack, double rightBack) {
+        if (leftFrontDrive != null) leftFrontDrive.setPower(leftFront);
+        if (rightFrontDrive != null) rightFrontDrive.setPower(rightFront);
+        if (leftBackDrive != null) leftBackDrive.setPower(leftBack);
+        if (rightBackDrive != null) rightBackDrive.setPower(rightBack);
+    }
+
+    /**
+     * Set power to the intake motor and both intake servos simultaneously.
+     *
+     * @param power Power level (-1.0 to 1.0).
+     */
+    public void setIntakePower(double power) {
+        if (intake != null) intake.setPower(power);
+        if (leftIntakeServo != null) leftIntakeServo.setPower(power);
+        if (rightIntakeServo != null) rightIntakeServo.setPower(power);
+    }
+
+    /**
+     * Set target velocity for the launcher motor in encoder ticks per second.
+     *
+     * @param velocity Target velocity in encoder ticks/sec.
+     */
+    public void setLauncherVelocity(double velocity) {
+        if (launcher != null) launcher.setVelocity(velocity);
+    }
+
+    /**
+     * Get current velocity of the launcher motor.
+     *
+     * @return Velocity in encoder ticks per second.
+     */
+    public double getLauncherVelocity() {
+        return launcher != null ? launcher.getVelocity() : 0;
+    }
+
+    /**
+     * Set power for the windmill continuous rotation servo.
+     *
+     * @param power Power level (-1.0 to 1.0).
+     */
+    public void setWindmillPower(double power) {
+        if (windmillServo != null) windmillServo.setPower(power);
     }
 }
