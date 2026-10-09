@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.tutorials.mechanisms.TestBenchDC;
 
 @Disabled
 @Autonomous
-public class StateIntegerPractice extends OpMode {
+public class StatePractice extends OpMode {
     TestBenchDC bench = new TestBenchDC();
     enum State {
         WAIT_FOR_A,
