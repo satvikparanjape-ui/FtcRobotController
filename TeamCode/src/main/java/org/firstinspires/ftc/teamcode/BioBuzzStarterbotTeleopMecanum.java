@@ -99,19 +99,17 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
     public void init() {
 
         /*
-         * Initialize the hardware variables. Note that the strings used here as parameters
-         * to 'get' must correspond to the names assigned during the robot configuration
-         * step.
+         * Initialize the hardware variables using centralized hardware names.
          */
-        leftFrontDrive = hardwareMap.get(DcMotor.class, "left_front_drive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        leftBackDrive = hardwareMap.get(DcMotor.class, "left_back_drive");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
-        intake = hardwareMap.get(DcMotor.class, "intake");
-        launcher = hardwareMap.get(DcMotorEx.class, "launcher");
-        windmillServo = hardwareMap.get(CRServo.class, "windmillServo");
-        leftIntakeServo = hardwareMap.get(CRServo.class, "left_intake_servo");
-        rightIntakeServo = hardwareMap.get(CRServo.class, "right_intake_servo");
+        leftFrontDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.LEFT_FRONT_DRIVE);
+        rightFrontDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.RIGHT_FRONT_DRIVE);
+        leftBackDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.LEFT_BACK_DRIVE);
+        rightBackDrive = hardwareMap.get(DcMotor.class, RobotHardwareNames.RIGHT_BACK_DRIVE);
+        intake = hardwareMap.get(DcMotor.class, RobotHardwareNames.INTAKE);
+        launcher = hardwareMap.get(DcMotorEx.class, RobotHardwareNames.LAUNCHER);
+        windmillServo = hardwareMap.get(CRServo.class, RobotHardwareNames.WINDMILL_SERVO);
+        leftIntakeServo = hardwareMap.get(CRServo.class, RobotHardwareNames.LEFT_INTAKE_SERVO);
+        rightIntakeServo = hardwareMap.get(CRServo.class, RobotHardwareNames.RIGHT_INTAKE_SERVO);
 
         /*
          * To drive forward, most robots need the motor on one side to be reversed,

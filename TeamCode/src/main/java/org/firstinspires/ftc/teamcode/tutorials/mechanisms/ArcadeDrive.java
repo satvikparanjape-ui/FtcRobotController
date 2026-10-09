@@ -4,14 +4,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.RobotHardwareNames;
+
 public class ArcadeDrive {
     private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
 
     public void init(HardwareMap hwMap) {
-        frontLeftMotor = hwMap.get(DcMotor.class, "front_left");
-        backLeftMotor = hwMap.get(DcMotor.class, "back_left");
-        frontRightMotor = hwMap.get(DcMotor.class, "front_right");
-        backRightMotor = hwMap.get(DcMotor.class, "back_right");
+        frontLeftMotor = hwMap.get(DcMotor.class, RobotHardwareNames.FRONT_LEFT);
+        backLeftMotor = hwMap.get(DcMotor.class, RobotHardwareNames.BACK_LEFT);
+        frontRightMotor = hwMap.get(DcMotor.class, RobotHardwareNames.FRONT_RIGHT);
+        backRightMotor = hwMap.get(DcMotor.class, RobotHardwareNames.BACK_RIGHT);
 
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
