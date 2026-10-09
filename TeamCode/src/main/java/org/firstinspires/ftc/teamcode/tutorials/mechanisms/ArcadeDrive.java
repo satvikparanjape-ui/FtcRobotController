@@ -1,14 +1,27 @@
 package org.firstinspires.ftc.teamcode.tutorials.mechanisms;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.RobotHardware;
+import org.firstinspires.ftc.teamcode.RobotHardwareNames;
 
 public class ArcadeDrive {
-    private final RobotHardware robot = new RobotHardware();
+    private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
 
     public void init(HardwareMap hwMap) {
-        robot.init(hwMap);
+        frontLeftMotor = hwMap.get(DcMotor.class, RobotHardwareNames.FRONT_LEFT);
+        backLeftMotor = hwMap.get(DcMotor.class, RobotHardwareNames.BACK_LEFT);
+        frontRightMotor = hwMap.get(DcMotor.class, RobotHardwareNames.FRONT_RIGHT);
+        backRightMotor = hwMap.get(DcMotor.class, RobotHardwareNames.BACK_RIGHT);
+
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void drive(double throttle, double spin) {
@@ -20,9 +33,9 @@ public class ArcadeDrive {
             rightPower /= largest;
         }
 
-        robot.leftFrontDrive.setPower(leftPower);
-        robot.rightFrontDrive.setPower(rightPower);
-        robot.leftBackDrive.setPower(leftPower);
-        robot.rightBackDrive.setPower(rightPower);
+        frontLeftMotor.setPower(leftPower);
+        frontRightMotor.setPower(rightPower);
+        backLeftMotor.setPower(leftPower);
+        backRightMotor.setPower(rightPower);
     }
 }
