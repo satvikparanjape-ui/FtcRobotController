@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.RobotHardwareNames;
 
 public class TestBenchColor {
     NormalizedColorSensor colorSensor;
@@ -18,7 +17,7 @@ public class TestBenchColor {
     }
 
     public void init(HardwareMap hwMap) {
-        colorSensor = hwMap.get(NormalizedColorSensor.class, RobotHardwareNames.COLOR_SENSOR);
+        colorSensor = hwMap.get(NormalizedColorSensor.class, "sensor_color_distance");
         colorSensor.setGain(4); // edit this while configuring the color sensor
     }
 

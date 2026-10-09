@@ -6,15 +6,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.RobotHardwareNames;
 
 public class TestBenchIMU {
     private IMU imu;
     private DcMotor motor;
 
     public void init(HardwareMap hwMap) {
-        imu = hwMap.get(IMU.class, RobotHardwareNames.IMU);
-        motor = hwMap.get(DcMotor.class, RobotHardwareNames.MOTOR);
+        imu = hwMap.get(IMU.class, "imu");
+        motor = hwMap.get(DcMotor.class, "motor");
 
         RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
                 //May need to change these:
