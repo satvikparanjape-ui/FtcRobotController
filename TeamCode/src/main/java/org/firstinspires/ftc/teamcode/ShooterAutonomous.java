@@ -15,28 +15,31 @@ public class ShooterAutonomous extends OpMode {
 
     @Override
     public void init() {
+        //pulls the methods to setup all of the hardware
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
     }
 
     @Override
     public void start() {
+    //shoots balls from the position
+    robot.setWindmillPower(1);
+    robot.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
+    sleep(10000);
 
-        robot.setDrivePower(1.0, 1.0, 1.0, 1.0);
-        sleep(500);
-        robot.setDrivePower(0, 0, 0, 0);
-        sleep(500);
+    //moves the robot forward
+    robot.setDrivePower(-1.0, -1.0, -1.0, -1.0);
+    sleep(500);
+    robot.setDrivePower(0, 0, 0, 0);
+    sleep(500);
 
-        robot.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
-        robot.setWindmillPower(1);
-        sleep(10000);
+    //moves the robot back to park
+    robot.setDrivePower(1.0, 1.0, 1.0, 1.0);
+    sleep(700);
+    robot.setDrivePower(0, 0, 0, 0);
 
-        robot.setDrivePower(-1.0, -1.0, -1.0, -1.0);
-        sleep(700);
-        robot.setDrivePower(0, 0, 0, 0);
-
-        robot.setLauncherVelocity(0);
-        robot.setWindmillPower(0);
+    robot.setLauncherVelocity(0);
+    robot.setWindmillPower(0);
 
     }
 
