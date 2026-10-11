@@ -1,14 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@Disabled
 @TeleOp(name = "PS4_TeleOp_Broom", group = "Linear OpMode")
 public class Teleop extends LinearOpMode {
 
     // Declare RobotHardware instance to handle hardware initialization and access
     private final RobotHardware robot = new RobotHardware();
-
     @Override
     public void runOpMode() {
         // Initialize all hardware variables using RobotHardware class
