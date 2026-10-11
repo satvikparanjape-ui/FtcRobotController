@@ -60,7 +60,7 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
      * enough to make a successful throw.
      */
     public final int LAUNCHER_TARGET_VELOCITY = 1250; //2678 RPM
-    public final int LAUNCHER_MIN_VELOCITY = 1200; //2571 RPM
+    public final int LAUNCHER_MIN_VELOCITY = 1240; //2571 RPM
 
 
     /*
@@ -136,7 +136,7 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
          * allow us to avoid setting the same motors/servos power more than once per loop. That can
          * create erratic behavior.
          */
-        intakePower = gamepad1.right_trigger - gamepad1.left_trigger;
+        intakePower = -gamepad2.right_stick_y + gamepad1.left_stick_y;
 
         launch();
 
@@ -154,7 +154,7 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
          * Show motor powers on the Driver Station via telemetry.
          */
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftFrontPower, rightFrontPower);
-        telemetry.addData("Triggers", "left (%.2f, right (%.2f)",gamepad1.left_trigger, gamepad1.right_trigger);
+        //telemetry.addData("Triggers", "left (%.2f, right (%.2f)",gamepad1.left_trigger, gamepad1.right_trigger);
     }
 
     /*
@@ -196,11 +196,7 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
          * holding down the right gamepad. If they are, then we want to start spinning up the launcher.
          * Otherwise, we start spinning the launcher down.
          */
-        if (gamepad1.right_bumper) {
-            robot.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
-        } else {
-            robot.setLauncherVelocity(0);
-        }
+        robot.setLauncherVelocity(Math.abs(LAUNCHER_TARGET_VELOCITY/-gamepad2.left_stick_y));
 
         /*
          * Here we ask if the driver is currently pressing the right bumper, AND the launcher is
@@ -209,8 +205,8 @@ public class BioBuzzStarterbotTeleopMecanum extends OpMode {
          * add some power to the intake power. This can sometimes help dislodge stuck elements from
          * inside the hopper.
          */
-        if (gamepad1.right_bumper && robot.getLauncherVelocity() > LAUNCHER_MIN_VELOCITY) {
-            robot.setWindmillPower(1);
+        if (robot.getLauncherVelocity() > LAUNCHER_MIN_VELOCITY) {
+            robot.setWindmillPower(-gamepad2.right_stick_y);
             intakePower += 0.5;
         } else {
             robot.setWindmillPower(0);
