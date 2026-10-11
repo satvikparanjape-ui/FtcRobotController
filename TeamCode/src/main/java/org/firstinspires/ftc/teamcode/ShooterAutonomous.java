@@ -38,8 +38,7 @@ public class ShooterAutonomous extends OpMode {
     sleep(700);
     robot.setDrivePower(0, 0, 0, 0);
 
-    robot.setLauncherVelocity(0);
-    robot.setWindmillPower(0);
+    stop();
 
     }
 
