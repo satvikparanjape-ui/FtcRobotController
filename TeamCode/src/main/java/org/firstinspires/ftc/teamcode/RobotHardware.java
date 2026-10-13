@@ -101,6 +101,16 @@ public class RobotHardware {
         if (leftIntakeServo != null) leftIntakeServo.setPower(power);
         if (rightIntakeServo != null) rightIntakeServo.setPower(power);
     }
+    public void setBroomPower(double power) {
+        intake.setPower(power);
+    }
+    public void setLeftIntakeServoPower(double power) {
+        leftIntakeServo.setPower(power);
+    }
+
+    public void setRightIntakeServoPower(double power) {
+        rightIntakeServo.setPower(power);
+    }
 
     /**
      * Set target velocity for the launcher motor in encoder ticks per second.
