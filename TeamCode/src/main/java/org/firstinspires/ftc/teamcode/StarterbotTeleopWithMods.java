@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -34,9 +37,21 @@ public class StarterbotTeleopWithMods extends OpMode {
         launch();
 
         if (gamepad2.x) powerState = -1; else powerState = 1;
-        if (gamepad2.triangle) robot.setBroomPower(powerState);
-        if (gamepad2.left_bumper) robot.setLeftIntakeServoPower(powerState);
-        if (gamepad2.right_bumper) robot.setRightIntakeServoPower(powerState);
+        if (gamepad2.triangle) robot.setBroomPower(powerState); else robot.setBroomPower(0);
+        if (gamepad2.left_bumper) robot.setLeftIntakeServoPower(powerState); else robot.setLeftIntakeServoPower(0);
+        if (gamepad2.right_bumper) robot.setRightIntakeServoPower(powerState); else robot.setRightIntakeServoPower(0);
+        if (gamepad1.x) {
+            robot.leftFrontDrive.setZeroPowerBehavior(BRAKE);
+            robot.rightFrontDrive.setZeroPowerBehavior(BRAKE);
+            robot.leftBackDrive.setZeroPowerBehavior(BRAKE);
+            robot.rightBackDrive.setZeroPowerBehavior(BRAKE);
+        }
+        if (gamepad1.triangle) {
+            robot.leftFrontDrive.setZeroPowerBehavior(FLOAT);
+            robot.rightFrontDrive.setZeroPowerBehavior(FLOAT);
+            robot.leftBackDrive.setZeroPowerBehavior(FLOAT);
+            robot.rightBackDrive.setZeroPowerBehavior(FLOAT);
+        }
 
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftFrontPower, rightFrontPower);
         //telemetry.addData("Triggers", "left (%.2f, right (%.2f)",gamepad1.left_trigger, gamepad1.right_trigger);
