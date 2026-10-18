@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BroganMPrattVideos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
+import org.firstinspires.ftc.teamcode.BroganMPrattVideos.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection;
 
 @Autonomous

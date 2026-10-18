@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BroganMPrattVideos;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.mechanisms.TestBenchDistance;
+import org.firstinspires.ftc.teamcode.BroganMPrattVideos.mechanisms.TestBenchDistance;
 
 @TeleOp
 public class DistanceTest extends OpMode {
